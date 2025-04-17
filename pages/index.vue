@@ -22,7 +22,7 @@
   
         <!-- 🎉 Амжилтын мессеж -->
         <p v-if="success" class="text-green-600 mt-8 text-lg animate-fade-in">
-          🎉 Илгээсэн! 📅 2025.05.10 | 🕕 18:00 | 📍 Zaisan Hill — уулзъя ❤️
+          🎉 Илгээсэн! 📅 2025.04.18 | 🕕 13:10 | 📍 сургууль дээр — уулзъя ❤️
         </p>
   
         <p v-if="error" class="text-red-600 mt-8 text-lg animate-fade-in">
@@ -40,28 +40,29 @@
   const error = ref(false)
   
   const sendInvite = async () => {
-    loading.value = true
-    success.value = false
-    error.value = false
-  
-    try {
-      await $fetch('http://localhost:8080/api/send-invite', {
-        method: 'POST',
-        body: {
-          name: 'Нууцлаг бүсгүй 😍',
-          email: 'orgiloorgil16@gmail.com'
-        }
-      })
-  
-      success.value = true
-      playSound()
-    } catch (err) {
-      error.value = true
-      console.error('💥 API error:', err)
-    } finally {
-      loading.value = false
-    }
+  loading.value = true
+  success.value = false
+  error.value = false
+
+  try {
+    await $fetch('https://date-invite-backend.onrender.com/api/send-invite', {
+      method: 'POST',
+      body: {
+        name: 'Нууцлаг бүсгүй 😍',
+        email: 'orgiloorgil16@gmail.com'
+      }
+    })
+
+    success.value = true
+    playSound()
+  } catch (err) {
+    error.value = true
+    console.error('💥 API error:', err)
+  } finally {
+    loading.value = false
   }
+}
+
   
   const playSound = () => {
     const audio = new Audio('/yes.mp3')
